@@ -1,0 +1,40 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: fuel-app-api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: fuel-app-parser-service
+          uri: https://e-petrol-price.herokuapp.com/
+          predicates:
+            - Path=/api/v1/fuel-info, /api/v1/fuel-info/update, /api/v1/fuel-info/logo, /api/v1/fuel-info/details
+            - Method=GET, POST, PUT
+            - Header=Authorization, Bearer (.*)
+          filters:
+            - JwtOnRequestTokenFilter
+        - id: fuel-app-user-service
+          uri: https://e-petrol-user.herokuapp.com/
+          predicates:
+            - Path=/api/v1/security/login, /api/v1/security/register, /api/v1/security/update-token,
+            - Method=POST
+        - id: fuel-app-user-service-not-security
+          uri: https://e-petrol-user.herokuapp.com/
+          predicates:
+            - Path=/api/v1/user, /api/v1/user/car
+            - Method=GET, POST, PUT, DELETE
+            - Header=Authorization, Bearer (.*)
+          filters:
+            - JwtOnRequestTokenFilter
+
+eureka:
+  client:
+    service-url:
+      defaultZone: https://e-petrol-eureka.herokuapp.com/eureka
+
+token-secret-key: qowpedmwpqodmeopdmodmewofmw9erfu8934hfnoiewnfcf9832nfioewnkdcksefmwoeimf983joiepjfwioe

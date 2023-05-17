@@ -31,10 +31,24 @@ spring:
             - Header=Authorization, Bearer (.*)
           filters:
             - JwtOnRequestTokenFilter
+#      globalcors:
+#        corsConfigurations:
+#          '[/**]':
+#            allowedOrigins:
+#              - http://localhost:3000
+#            allowedMethods:
+#              - GET
+#              - POST
+#              - PUT
+#              - DELETE
+#              - OPTIONS
+#            allowedHeaders: "*"
+#            allowCredentials: true
+#            maxAge: 3600
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8010/eureka
 
-token-secret-key: ${TOKEN_SECRET_KEY}
+token-secret-key: nc*De*WD?788OK.n*5YRwefodikjedwoikdwnoedoidweoniedwonnodedwenodewoidweonidewnow

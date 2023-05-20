@@ -11,7 +11,7 @@ spring:
           enabled: true
       routes:
         - id: video-chat-recommendation
-          uri: http://localhost:8086/
+          uri: http://recommendation:8086/
           predicates:
             - Path=/api/v1/chat/join-chat, /api/v1/chat/end-chat, /api/v1/chat/terminate
             - Method=POST
@@ -19,12 +19,12 @@ spring:
           filters:
             - JwtOnRequestTokenFilter
         - id: video-chat-user
-          uri: http://localhost:8085/
+          uri: http://user:8085/
           predicates:
             - Path=/api/v1/security/login, /api/v1/security/register, /api/v1/security/update-token,
             - Method=POST
         - id: video-chat-user-with-jwt
-          uri: http://localhost:8085/
+          uri: http://user:8085/
           predicates:
             - Path=/api/v1/talk, /api/v1/user
             - Method=GET, POST, PUT
@@ -35,6 +35,6 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8010/eureka
+      defaultZone: http://discovery:8010/eureka
 
 token-secret-key: nc*De*WD?788OK.n*5YRwefodikjedwoikdwnoedoidweoniedwonnodedwenodewoidweonidewnow
